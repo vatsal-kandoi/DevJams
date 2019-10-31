@@ -4,44 +4,44 @@
 # In[14]:
 
 
-import csv                          
-from sklearn.svm import LinearSVC
-from nltk.classify import SklearnClassifier
-from random import shuffle
-from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics import precision_recall_fscore_support
-from sklearn.metrics import accuracy_score
-import numpy as np
-import nltk
+# import csv                          
+# from sklearn.svm import LinearSVC
+# from nltk.classify import SklearnClassifier
+# from random import shuffle
+# from sklearn.pipeline import Pipeline
+# from sklearn.feature_extraction.text import CountVectorizer
+# from sklearn.metrics import precision_recall_fscore_support
+# from sklearn.metrics import accuracy_score
+# import numpy as np
+# import nltk
 from nltk.tokenize import word_tokenize
-nltk.download('punkt')
+# nltk.download('punkt')
 
 
 # In[15]:
 
 
 # load data from a file and append it to the rawData
-def loadData(path, Text=None):
-    with open(path) as f:
-        reader = csv.reader(f, delimiter=',')
-        next(reader)
-        for line in reader:
-            (Id, Text, Label) = parseReview(line)
-            rawData.append((Id, Text, Label))
-            preprocessedData.append((Id, preProcess(Text), Label))
+# def loadData(path, Text=None):
+#     with open(path) as f:
+#         reader = csv.reader(f, delimiter=',')
+#         next(reader)
+#         for line in reader:
+#             (Id, Text, Label) = parseReview(line)
+#             rawData.append((Id, Text, Label))
+#             preprocessedData.append((Id, preProcess(Text), Label))
         
-def splitData(percentage):
-    dataSamples = len(rawData)
-    halfOfData = int(len(rawData)/2)
-    trainingSamples = int((percentage*dataSamples)/2)
-    for (_, Text, Label) in rawData[:trainingSamples] + rawData[halfOfData:halfOfData+trainingSamples]:
-        trainData.append((toFeatureVector(preProcess(Text)),Label))
-    for (_, Text, Label) in rawData[trainingSamples:halfOfData] + rawData[halfOfData+trainingSamples:]:
-        testData.append((toFeatureVector(preProcess(Text)),Label))
+# def splitData(percentage):
+#     dataSamples = len(rawData)
+#     halfOfData = int(len(rawData)/2)
+#     trainingSamples = int((percentage*dataSamples)/2)
+#     for (_, Text, Label) in rawData[:trainingSamples] + rawData[halfOfData:halfOfData+trainingSamples]:
+#         trainData.append((toFeatureVector(preProcess(Text)),Label))
+#     for (_, Text, Label) in rawData[trainingSamples:halfOfData] + rawData[halfOfData+trainingSamples:]:
+#         testData.append((toFeatureVector(preProcess(Text)),Label))
 
 
-# In[16]:
+# # In[16]:
 
 
 def parseReview(reviewLine):
@@ -86,29 +86,29 @@ def toFeatureVector(tokens):
 # In[19]:
 
 
-# TRAINING AND VALIDATING OUR CLASSIFIER
-def trainClassifier(trainData):
-    print("Training Classifier...")
-    pipeline =  Pipeline([('svc', LinearSVC())])
-    return SklearnClassifier(pipeline).train(trainData)
+# # TRAINING AND VALIDATING OUR CLASSIFIER
+# def trainClassifier(trainData):
+#     print("Training Classifier...")
+#     pipeline =  Pipeline([('svc', LinearSVC())])
+#     return SklearnClassifier(pipeline).train(trainData)
 
 
 # In[71]:
 
 
-def crossValidate(dataset, folds):
-    shuffle(dataset)
-    cv_results = []
-    foldSize = int(len(dataset)/folds)
-    for i in range(0,len(dataset),foldSize):
-        classifier = trainClassifier(dataset[:i]+dataset[foldSize+i:])
-        y_pred = predictLabels(dataset[i:i+foldSize],classifier)
-        a = accuracy_score(list(map(lambda d : d[1], dataset[i:i+foldSize])), y_pred)
-        (p,r,f,_) = precision_recall_fscore_support(list(map(lambda d : d[1], dataset[i:i+foldSize])), y_pred, average ='macro')
-        #print(a,p,r,f)
-        cv_results.append((a,p,r,f))
-    cv_results = (np.mean(np.array(cv_results),axis=0))
-    return cv_results
+# def crossValidate(dataset, folds):
+#     shuffle(dataset)
+#     cv_results = []
+#     foldSize = int(len(dataset)/folds)
+#     for i in range(0,len(dataset),foldSize):
+#         classifier = trainClassifier(dataset[:i]+dataset[foldSize+i:])
+#         y_pred = predictLabels(dataset[i:i+foldSize],classifier)
+#         a = accuracy_score(list(map(lambda d : d[1], dataset[i:i+foldSize])), y_pred)
+#         (p,r,f,_) = precision_recall_fscore_support(list(map(lambda d : d[1], dataset[i:i+foldSize])), y_pred, average ='macro')
+#         #print(a,p,r,f)
+#         cv_results.append((a,p,r,f))
+#     cv_results = (np.mean(np.array(cv_results),axis=0))
+#     return cv_results
 
 
 # In[21]:
@@ -162,11 +162,11 @@ def predictLabel(reviewSample, classifier):
 # In[32]:
 
 
-from nltk.corpus import stopwords
-from nltk.tokenize import RegexpTokenizer
-from nltk.stem import WordNetLemmatizer
-from nltk.util import ngrams
-import string
+# from nltk.corpus import stopwords
+# from nltk.tokenize import RegexpTokenizer
+# from nltk.stem import WordNetLemmatizer
+# from nltk.util import ngrams
+# import string
 
 
 # In[33]:
@@ -465,16 +465,17 @@ def pred(obj):
     # obj.accuracy = a;
     obj['real']=[];
     obj['fake']=[];
+    print(predictions)
     for i in range(len(predictions)):
-        if predictions[i]!='__label1__':
+        if predictions[i]=='real':
             obj['real'].append(obj['reviews'][i]);
         else:
             obj['fake'].append(obj['reviews'][i]);
     newrating=0;
     for i in range(len(obj['real'])):
         newrating+=float(obj['real'][i]['review_rating'])
-    newrating=newrating/len(obj['real'])
+    if len(obj['real'])>0:
+        newrating=newrating/len(obj['real'])
     obj['newrating']=newrating;
     return obj;
     
-
