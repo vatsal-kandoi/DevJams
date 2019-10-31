@@ -61,10 +61,10 @@ nav{
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
-    color:rgba(219, 70, 24);
+    color:rgb(114, 114, 114);
 }
 .search-icon:hover{
-    color:rgba(255, 38, 0,1);    
+    color:rgb(0, 0, 0);    
 }
 .search{
     outline: none;
@@ -72,12 +72,12 @@ nav{
     width: 100%;
     font-size: 16px;
     cursor: pointer;
-    color:rgba(219, 70, 24);
+    color:rgb(82, 82, 82);
     padding-right: 50px;
     padding-left: 10px;
 }
 .search:hover{
-    color:rgba(255, 38, 0,1);
+    color:rgb(0, 0, 0);
 }
 @media only screen and (max-width:650px) {
     .main-body{
@@ -149,10 +149,15 @@ nav{
     font-size:18px;
 }
 .sponsers{
+    margin-top: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 .sponsers-image{
     max-width: 150px;
+}
+
+.red{
+    color: rgb(214, 57, 57);
 }

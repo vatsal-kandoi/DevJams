@@ -9,7 +9,7 @@ console.log(urlParams.get('item').split('/'))
 var overall;
 
 let xhttp=new XMLHttpRequest();
-xhttp.open('GET',`http://localhost:2000/details?id=${id}`,false)
+xhttp.open('GET',`https://protected-cliffs-92683.herokuapp.com/details?id=${id}`,false)
 xhttp.onreadystatechange = () => {
     if(xhttp.readyState==4 && xhttp.status == 200) {
         try {
@@ -65,7 +65,7 @@ function switchSome(inte) {
                     ${overall.real[i].review_author}
                 </div>
                 <div class="card-body review">
-                    <div><img src="assets/images/product.png" class="review-img"></div>
+                    <div><img src="assets/images/product.png" class="review-img hide-image"></div>
                     <div class="review-text">${overall.real[i].review_text}</div>
                 </div>
             </div>  
@@ -75,7 +75,7 @@ function switchSome(inte) {
             document.getElementsByClassName('reviews')[0].innerHTML+=`
             <div class="card">
                 <div class="card-header">
-                   No real reviews
+                   No real reviews amongst the reviews scraped.
                 </div>
             </div>  
             `;
@@ -89,7 +89,7 @@ function switchSome(inte) {
                     ${overall.fake[i].review_author}
                 </div>
                 <div class="card-body review">
-                    <div><img src="assets/images/product.png" class="review-img"></div>
+                    <div><img src="assets/images/product.png" class="review-img hide-image"></div>
                     <div class="review-text">${overall.fake[i].review_text}</div>
                 </div>
             </div>  
@@ -99,10 +99,11 @@ function switchSome(inte) {
             document.getElementsByClassName('reviews')[0].innerHTML+=`
             <div class="card">
                 <div class="card-header">
-                   No fake reviews
+                   No fake reviews amongst the reviews scraped.
                 </div>
             </div>  
             `;
         }
     }
+    window.scrollY = window.scrollY+100
 }

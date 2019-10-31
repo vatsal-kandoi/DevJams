@@ -78,6 +78,31 @@ a{
     .product-enc{
         flex-direction: column-reverse;
     }
+    .reviews-enc{
+        width: 100% !important;
+    }
+    .ratings-enc{
+        width: 100% !important;
+        align-items: flex-start !important;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+@media only screen and (max-width:800px) {
+    .reviews-enc{
+        width: 60%;
+    }
+    .ratings-enc{
+        width: 40% !important;
+        align-items: flex-start !important;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+@media only screen and (max-width:300px) {
+    .hide-image{
+        display: none !important;   
+    }
 }
 .reviews-enc{
     width:70%;
@@ -90,6 +115,12 @@ a{
 }
 .pill{
     cursor: pointer;
+}
+@media only screen and (max-width:310px) {
+    .pill{
+        max-width: 100px;
+        font-size: 14px;
+    }
 }
 .ratings-enc{
     width:30%;
